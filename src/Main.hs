@@ -29,20 +29,27 @@ instance FromJSON Todo
 
 newtype ServerState = ServerState { todos :: IORef [Todo] }
 
-type Api = SpockM () () () ()
+-- type Api a = SpockM () () ServerState a
+type Api = SpockM () () ()
 
 type ApiAction a = SpockAction () () () a
 
 main :: IO ()
 main = do
+    -- st <- ServerState <$>
+    --     newIORef [Todo "Something to do"]
     spockCfg <- defaultSpockCfg () PCNoDatabase ()
     runSpock 8080 (spock spockCfg app)
 
-app :: Api
+app :: Api ()
 app = do
     get "todos" $ do
         json $ Todo { content="Some contents" }
+
+        -- todos' <- getState >>= (liftIO . readIORef . todos)
+        -- json $ forM_ todos'
+        -- json $ Todo { content="Some contents" }
     post "todos" $ do
-        theTodo <- jsonBody' :: ApiAction Todo
-        text $ "Parsed: " <> pack (show theTodo)
+         theTodo <- jsonBody' :: ApiAction Todo
+         text $ "Parsed: " <> pack (show theTodo)
         
