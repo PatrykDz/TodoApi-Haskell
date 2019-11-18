@@ -22,6 +22,17 @@
   (major1) == 0 && (major2) == 13 && (minor) <= 0)
 #endif /* MIN_VERSION_Spock */
 
+/* package Spock-lucid-0.4.0.1 */
+#ifndef VERSION_Spock_lucid
+#define VERSION_Spock_lucid "0.4.0.1"
+#endif /* VERSION_Spock_lucid */
+#ifndef MIN_VERSION_Spock_lucid
+#define MIN_VERSION_Spock_lucid(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  4 || \
+  (major1) == 0 && (major2) == 4 && (minor) <= 0)
+#endif /* MIN_VERSION_Spock_lucid */
+
 /* package base-4.12.0.0 */
 #ifndef VERSION_base
 #define VERSION_base "4.12.0.0"
@@ -43,6 +54,17 @@
   (major1) == 0 && (major2) <  12 || \
   (major1) == 0 && (major2) == 12 && (minor) <= 3)
 #endif /* MIN_VERSION_http_types */
+
+/* package lucid-2.9.12 */
+#ifndef VERSION_lucid
+#define VERSION_lucid "2.9.12"
+#endif /* VERSION_lucid */
+#ifndef MIN_VERSION_lucid
+#define MIN_VERSION_lucid(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  9 || \
+  (major1) == 2 && (major2) == 9 && (minor) <= 12)
+#endif /* MIN_VERSION_lucid */
 
 /* package mtl-2.2.2 */
 #ifndef VERSION_mtl

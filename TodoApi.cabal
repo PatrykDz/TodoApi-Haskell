@@ -62,6 +62,8 @@ executable TodoApi
                      , http-types
                      , text
                      , mtl
+                     , lucid
+                     , Spock-lucid
 
   -- Directories containing source files.
   hs-source-dirs:      src
