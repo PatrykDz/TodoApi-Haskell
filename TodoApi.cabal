@@ -61,6 +61,7 @@ executable TodoApi
                      , Spock
                      , http-types
                      , text
+                     , aeson
                      , mtl
                      , lucid
                      , Spock-lucid

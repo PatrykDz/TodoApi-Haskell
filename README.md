@@ -13,6 +13,8 @@ https://wiki.haskell.org/How_to_write_a_Haskell_program
 Your First Web Application with Spock video
 https://www.youtube.com/watch?v=Orm-jIIgVD0
 
+Creating REST API with Spock
+https://www.spock.li/tutorials/rest-api
 
 # Commands used
 

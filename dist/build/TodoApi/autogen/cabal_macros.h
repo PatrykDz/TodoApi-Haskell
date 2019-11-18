@@ -33,6 +33,17 @@
   (major1) == 0 && (major2) == 4 && (minor) <= 0)
 #endif /* MIN_VERSION_Spock_lucid */
 
+/* package aeson-1.4.6.0 */
+#ifndef VERSION_aeson
+#define VERSION_aeson "1.4.6.0"
+#endif /* VERSION_aeson */
+#ifndef MIN_VERSION_aeson
+#define MIN_VERSION_aeson(major1,major2,minor) (\
+  (major1) <  1 || \
+  (major1) == 1 && (major2) <  4 || \
+  (major1) == 1 && (major2) == 4 && (minor) <= 6)
+#endif /* MIN_VERSION_aeson */
+
 /* package base-4.12.0.0 */
 #ifndef VERSION_base
 #define VERSION_base "4.12.0.0"

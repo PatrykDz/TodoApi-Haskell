@@ -1,52 +1,48 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
+
 module Main where
 
-import Data.Semigroup ((<>))
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad (forM_)
-import Data.Text (Text)
-import Data.IORef
 import Web.Spock
 import Web.Spock.Config
 import Web.Spock.Lucid (lucid)
 import Lucid
 
-data Note = Note {author :: Text, contents :: Text }
-newtype ServerState = ServerState { notes :: IORef [Note] }
+import Data.Aeson hiding (json)
+import Data.Semigroup ((<>))
+import Data.Monoid ((<>))
+import Data.Text (Text, pack)
+import Data.Bool (Bool)
+import Data.IORef
+import GHC.Generics
 
-type Server a = SpockM () () ServerState a
+data Todo = Todo 
+    {
+    content :: Text
+    } deriving (Generic, Show)
 
-app :: Server ()
-app = do 
-    get root $ do 
-        notes' <- getState >>= (liftIO . readIORef . notes)
-        lucid $ do
-            h1_ "Notes"
-            ul_ $ forM_ notes' $ \note -> li_ $ do
-                toHtml (author note)
-                ": "
-                toHtml (contents note)
-            h1_ "New Note"
-            form_ [method_ "post"] $ do
-                label_ $ do
-                    "Author: "
-                    input_ [name_ "author"]
-                label_ $ do
-                    "Contents: "
-                    textarea_ [name_ "contents"] ""
-                input_ [type_ "submit", value_ "Add Note"]
-    post root $ do
-        author <- param' "author"
-        contents <- param' "contents"
-        notesRef <- notes <$> getState
-        liftIO $ atomicModifyIORef' notesRef $ \notes ->
-            (notes <> [Note author contents], ())
-        redirect "/"
+instance ToJSON Todo
+
+instance FromJSON Todo
+
+newtype ServerState = ServerState { todos :: IORef [Todo] }
+
+type Api = SpockM () () () ()
+
+type ApiAction a = SpockAction () () () a
 
 main :: IO ()
 main = do
-    st <- ServerState <$> 
-        newIORef [ Note "Alice" "Do something"
-                 , Note "Bob" "Do something else" ]
-    cfg <- defaultSpockCfg () PCNoDatabase st
-    runSpock 8080 (spock cfg app)
+    spockCfg <- defaultSpockCfg () PCNoDatabase ()
+    runSpock 8080 (spock spockCfg app)
+
+app :: Api
+app = do
+    get "todos" $ do
+        json $ Todo { content="Some contents" }
+    post "todos" $ do
+        theTodo <- jsonBody' :: ApiAction Todo
+        text $ "Parsed: " <> pack (show theTodo)
+        
