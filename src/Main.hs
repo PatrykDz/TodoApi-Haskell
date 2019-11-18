@@ -45,11 +45,25 @@ app :: Api ()
 app = do
     get "todos" $ do
         json $ Todo { content="Some contents" }
-
         -- todos' <- getState >>= (liftIO . readIORef . todos)
         -- json $ forM_ todos'
         -- json $ Todo { content="Some contents" }
     post "todos" $ do
          theTodo <- jsonBody' :: ApiAction Todo
          text $ "Parsed: " <> pack (show theTodo)
-        
+    post "fizzbuzzone" $ do
+        passedNumber <- jsonBody' :: ApiAction Int
+        json $ fizzBuzzOne passedNumber
+    post "fizzbuzz" $ do
+        passedNumber <- jsonBody' :: ApiAction [Int]
+        json $ fizzBuzz passedNumber
+
+fizzBuzzOne :: Int -> String
+fizzBuzzOne i | i `mod` 3 == 0 && i `mod` 5 == 0 = "Fizz"
+fizzBuzzOne i | i `mod` 3 == 0 = "Fizz"
+fizzBuzzOne i | i `mod` 5 == 0 = "Buzz"
+fizzBuzzOne i = show i
+
+fizzBuzz :: [Int] -> [String]
+fizzBuzz [] = []
+fizzBuzz (x:xs) = fizzBuzzOne x : fizzBuzz xs
