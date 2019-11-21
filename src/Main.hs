@@ -2,61 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module Main where
+import Web.Scotty
 
-import Control.Monad.IO.Class (liftIO)
-import Control.Monad (forM_)
-import Web.Spock
-import Web.Spock.Config
-import Web.Spock.Lucid (lucid)
-import Lucid
+import Data.Monoid (mconcat)
 
-import Data.Aeson hiding (json)
-import Data.Semigroup ((<>))
-import Data.Monoid ((<>))
-import Data.Text (Text, pack)
-import Data.Bool (Bool)
-import Data.IORef
-import GHC.Generics
-
-data Todo = Todo 
-    {
-    content :: Text
-    } deriving (Generic, Show)
-
-instance ToJSON Todo
-
-instance FromJSON Todo
-
-newtype ServerState = ServerState { todos :: IORef [Todo] }
-
--- type Api a = SpockM () () ServerState a
-type Api = SpockM () () ()
-
-type ApiAction a = SpockAction () () () a
-
-main :: IO ()
-main = do
-    -- st <- ServerState <$>
-    --     newIORef [Todo "Something to do"]
-    spockCfg <- defaultSpockCfg () PCNoDatabase ()
-    runSpock 8080 (spock spockCfg app)
-
-app :: Api ()
-app = do
-    get "todos" $ do
-        json $ Todo { content="Some contents" }
-        -- todos' <- getState >>= (liftIO . readIORef . todos)
-        -- json $ forM_ todos'
-        -- json $ Todo { content="Some contents" }
-    post "todos" $ do
-         theTodo <- jsonBody' :: ApiAction Todo
-         text $ "Parsed: " <> pack (show theTodo)
-    post "fizzbuzzone" $ do
-        passedNumber <- jsonBody' :: ApiAction Int
-        json $ fizzBuzzOne passedNumber
-    post "fizzbuzz" $ do
-        passedNumber <- jsonBody' :: ApiAction [Int]
-        json $ fizzBuzz passedNumber
+main = scotty 5000 $
+    get "/:number" $ do
+        number <- param "number"
+        json $ fizzBuzz number
 
 fizzBuzzOne :: Int -> String
 fizzBuzzOne i | i `mod` 3 == 0 && i `mod` 5 == 0 = "Fizz"

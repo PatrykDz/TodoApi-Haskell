@@ -11,28 +11,6 @@
   (major1) == 0 && (major2) == 1 && (minor) <= 0)
 #endif /* MIN_VERSION_TodoApi */
 
-/* package Spock-0.13.0.0 */
-#ifndef VERSION_Spock
-#define VERSION_Spock "0.13.0.0"
-#endif /* VERSION_Spock */
-#ifndef MIN_VERSION_Spock
-#define MIN_VERSION_Spock(major1,major2,minor) (\
-  (major1) <  0 || \
-  (major1) == 0 && (major2) <  13 || \
-  (major1) == 0 && (major2) == 13 && (minor) <= 0)
-#endif /* MIN_VERSION_Spock */
-
-/* package Spock-lucid-0.4.0.1 */
-#ifndef VERSION_Spock_lucid
-#define VERSION_Spock_lucid "0.4.0.1"
-#endif /* VERSION_Spock_lucid */
-#ifndef MIN_VERSION_Spock_lucid
-#define MIN_VERSION_Spock_lucid(major1,major2,minor) (\
-  (major1) <  0 || \
-  (major1) == 0 && (major2) <  4 || \
-  (major1) == 0 && (major2) == 4 && (minor) <= 0)
-#endif /* MIN_VERSION_Spock_lucid */
-
 /* package aeson-1.4.6.0 */
 #ifndef VERSION_aeson
 #define VERSION_aeson "1.4.6.0"
@@ -55,38 +33,16 @@
   (major1) == 4 && (major2) == 12 && (minor) <= 0)
 #endif /* MIN_VERSION_base */
 
-/* package http-types-0.12.3 */
-#ifndef VERSION_http_types
-#define VERSION_http_types "0.12.3"
-#endif /* VERSION_http_types */
-#ifndef MIN_VERSION_http_types
-#define MIN_VERSION_http_types(major1,major2,minor) (\
+/* package scotty-0.11.5 */
+#ifndef VERSION_scotty
+#define VERSION_scotty "0.11.5"
+#endif /* VERSION_scotty */
+#ifndef MIN_VERSION_scotty
+#define MIN_VERSION_scotty(major1,major2,minor) (\
   (major1) <  0 || \
-  (major1) == 0 && (major2) <  12 || \
-  (major1) == 0 && (major2) == 12 && (minor) <= 3)
-#endif /* MIN_VERSION_http_types */
-
-/* package lucid-2.9.12 */
-#ifndef VERSION_lucid
-#define VERSION_lucid "2.9.12"
-#endif /* VERSION_lucid */
-#ifndef MIN_VERSION_lucid
-#define MIN_VERSION_lucid(major1,major2,minor) (\
-  (major1) <  2 || \
-  (major1) == 2 && (major2) <  9 || \
-  (major1) == 2 && (major2) == 9 && (minor) <= 12)
-#endif /* MIN_VERSION_lucid */
-
-/* package mtl-2.2.2 */
-#ifndef VERSION_mtl
-#define VERSION_mtl "2.2.2"
-#endif /* VERSION_mtl */
-#ifndef MIN_VERSION_mtl
-#define MIN_VERSION_mtl(major1,major2,minor) (\
-  (major1) <  2 || \
-  (major1) == 2 && (major2) <  2 || \
-  (major1) == 2 && (major2) == 2 && (minor) <= 2)
-#endif /* MIN_VERSION_mtl */
+  (major1) == 0 && (major2) <  11 || \
+  (major1) == 0 && (major2) == 11 && (minor) <= 5)
+#endif /* MIN_VERSION_scotty */
 
 /* package text-1.2.3.1 */
 #ifndef VERSION_text

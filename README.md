@@ -7,6 +7,9 @@ The idea of this repository is to learn basics of Haskell
 Snap
 https://thoughtbot.com/blog/a-rest-api-with-haskell-and-snap
 
+Scotty
+https://github.com/scotty-web/scotty
+
 Starting project using cabal
 https://wiki.haskell.org/How_to_write_a_Haskell_program
 
